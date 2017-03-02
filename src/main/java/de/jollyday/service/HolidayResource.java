@@ -26,14 +26,14 @@ public class HolidayResource {
 
     @GET
     @Path("/holidays")
-    @Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getHolidaysWithoutPath(@PathParam("calendar") String calendar, @QueryParam("year") Integer year, @QueryParam("from") String fromStr, @QueryParam("until") String untilStr){
         return getHolidaysWithPath(Collections.emptyList(), calendar, year, fromStr, untilStr);
     }
 
     @GET
     @Path("/{segments: .*}/holidays")
-    @Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getHolidaysWithPath(@PathParam("segments") List<PathSegment> segments, @PathParam("calendar") String calendar, @QueryParam("year") Integer year, @QueryParam("from") String fromStr, @QueryParam("until") String untilStr){
         final LocalDate from = fromStr != null ? LocalDate.parse(fromStr, formatter) : null;
         final LocalDate until = untilStr != null ? LocalDate.parse(untilStr, formatter) : null;
