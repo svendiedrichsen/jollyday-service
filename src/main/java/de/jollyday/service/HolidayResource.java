@@ -19,7 +19,7 @@ import java.util.*;
 @Path("calendars/{calendar}")
 public class HolidayResource {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.mm.yyyy");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.mm.yyyy");
 
     @Context
     private HttpServletRequest request;
@@ -35,8 +35,8 @@ public class HolidayResource {
     @Path("/{segments: .*}/holidays")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getHolidaysWithPath(@PathParam("segments") List<PathSegment> segments, @PathParam("calendar") String calendar, @QueryParam("year") Integer year, @QueryParam("from") String fromStr, @QueryParam("until") String untilStr){
-        final LocalDate from = fromStr != null ? LocalDate.parse(fromStr, formatter) : null;
-        final LocalDate until = untilStr != null ? LocalDate.parse(untilStr, formatter) : null;
+        final LocalDate from = fromStr != null ? LocalDate.parse(fromStr, FORMATTER) : null;
+        final LocalDate until = untilStr != null ? LocalDate.parse(untilStr, FORMATTER) : null;
         validateDateRange(from, until);
         final ManagerParameter managerParameter = ManagerParameters.create(calendar);
         final HolidayManager holidayManager = HolidayManager.getInstance(managerParameter);
